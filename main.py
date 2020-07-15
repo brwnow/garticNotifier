@@ -15,7 +15,7 @@ if len(user) == 0:
     exit()
 else:
     garticRequester = GarticRequester()
-    content = garticRequester.getFriendsPage(user, "1")
+    content = garticRequester.getFriendsPageHtml(user, "1")
 
 soup = BeautifulSoup(content, 'lxml')
 

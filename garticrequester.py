@@ -15,7 +15,7 @@ class GarticRequester:
     def getProfileHtml(self, username):
         return self.doRequest(username)
 
-    def getFriendsPage(self, username, pageNumber):
+    def getFriendsPageHtml(self, username, pageNumber):
         return self.doRequest(username + self.GARTIC_FRIENDS_ENDPOINT, {self.GARTIC_FRIENDS_PAG_ATT: pageNumber})
 
     def doRequest(self, route, attMap = {}):
