@@ -1,6 +1,7 @@
 import sys
-from bs4 import BeautifulSoup
 from garticrequester import GarticRequester
+from garticfriendpage import GarticFriendPage
+from garticprofilepage import GarticProfilePage
 
 if len(sys.argv) > 1:
     user = sys.argv[1]
@@ -15,9 +16,17 @@ if len(user) == 0:
     exit()
 else:
     garticRequester = GarticRequester()
-    content = garticRequester.getFriendsPageHtml(user, "1")
+    friendsPageRaw = garticRequester.getFriendsPageHtml(user, "1")
+    profileRaw = garticRequester.getProfileHtml(user)
 
-soup = BeautifulSoup(content, 'lxml')
+friendsPage = GarticFriendPage(friendsPageRaw)
+profile = GarticProfilePage(profileRaw)
 
-for player in soup.find_all("div", class_="titulo"):
-    print(player.find("a").contents[0].replace("\n", "").lower())
+print(user)
+print("---")
+print(profile.name)
+print(profile.status)
+print(profile.phrase)
+print(profile.picture)
+print("===")
+print(friendsPage.friendsList)
