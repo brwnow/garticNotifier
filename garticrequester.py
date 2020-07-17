@@ -11,8 +11,7 @@ class GarticRequester:
                             'sec-fetch-site': 'none',
                             'upgrade-insecure-requests': '1',
                             'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-                            'accept-language': 'en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7',
-                            'connection': 'close' }
+                            'accept-language': 'en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7' }
 
     GARTIC_FRIENDS_ENDPOINT = "/amigos"
     GARTIC_FRIENDS_PAG_ATT = "pag"
