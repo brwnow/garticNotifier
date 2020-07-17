@@ -1,32 +1,60 @@
 import sys
+import time
+import keyboard
 from garticrequester import GarticRequester
 from garticfriendpage import GarticFriendPage
-from garticprofilepage import GarticProfilePage
 
-if len(sys.argv) > 1:
-    user = sys.argv[1]
-else:
-    user = ""
+shouldStop = False
 
-friendsReq = ""
-content = ""
+def onQuitKeyPressed():
+    global shouldStop
+    shouldStop = True
 
-if len(user) == 0:
-    print("No user defined")
-    exit()
-else:
+def extractRecentLoggedUsers(newList, oldList):
+    for i in range(0, len(newList)):
+        if oldList[0] == newList[i]:
+            return newList[:i]
+
+    return newList[:]
+
+def main():
+    # Checking if a username was passed ass the first parameter
+    if len(sys.argv) > 1:
+        user = sys.argv[1]
+    else:
+        print("Username is missing. Pass the username as the first parameter of the program call")
+        exit()
+
+    keyboard.add_hotkey('ctrl+shift+q', onQuitKeyPressed)
+
     garticRequester = GarticRequester()
-    friendsPageRaw = garticRequester.getFriendsPageHtml(user, "1")
-    profileRaw = garticRequester.getProfileHtml(user)
 
-friendsPage = GarticFriendPage(friendsPageRaw)
-profile = GarticProfilePage(profileRaw)
+    timestamp = time.time() - 15
+    oldList = []
+    while not shouldStop:
+        if time.time() - timestamp >= 15:
+            timestamp = time.time()
 
-print(user)
-print("---")
-print(profile.name)
-print(profile.status)
-print(profile.phrase)
-print(profile.picture)
-print("===")
-print(friendsPage.friendsList)
+            friendsPageRaw = garticRequester.getFriendsPageHtml(user, "1")
+            friendsPage = GarticFriendPage(friendsPageRaw)
+
+            if len(oldList) > 0:
+                recentLoggedUsers = extractRecentLoggedUsers(friendsPage.friendsList, oldList)
+
+                oldList = friendsPage.friendsList
+
+                if len(recentLoggedUsers) > 0:
+                    loggedUsersMsg = time.strftime('[%X %x]')
+
+                    for user in recentLoggedUsers:
+                        loggedUsersMsg = loggedUsersMsg + ' ' + user
+
+                    print(loggedUsersMsg)
+
+            else:
+                oldList = friendsPage.friendsList
+
+        time.sleep(.05)
+
+if __name__ == "__main__":
+    main()
