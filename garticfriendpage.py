@@ -7,6 +7,11 @@ class GarticFriendPage:
     friendsList = []
 
     def __init__(self, rawPageData):
+        # For some reason python uses the same list object for all GarticFriendPage instances
+        # So it's necessary setting this att to an empty list every time GarticFriendPage is
+        #instantiated
+        self.friendsList = []
+
         soup = BeautifulSoup(rawPageData, 'lxml')
 
         # Getting current page
