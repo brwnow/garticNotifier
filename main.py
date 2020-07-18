@@ -3,6 +3,7 @@ import time
 import keyboard
 from garticrequester import GarticRequester
 from garticfriendpage import GarticFriendPage
+import log
 
 shouldStop = False
 
@@ -50,29 +51,38 @@ def main():
         if time.time() - timestamp >= GARTIC_REQUESTS_INTERVAL:
             timestamp = time.time()
 
+            log.log(user + '\'s friends page 1 request attempt')
             friendsPageRaw = garticRequester.getFriendsPageHtml(user, "1")
 
             friendsPage = None
 
             if friendsPageRaw != None:
+                log.log('Parsing ' + user + ' first page of friends')
                 friendsPage = GarticFriendPage(friendsPageRaw)
             else:
+                log.log('Requesting ' + user + ' friends page failed')
                 continue
 
             if len(oldList) > 0:
+                log.log('Detecting friends of ' + user + ' that have logged since last check')
                 recentLoggedUsers = extractRecentLoggedUsers(friendsPage.friendsList, oldList)
 
                 oldList = friendsPage.friendsList
 
                 if len(recentLoggedUsers) > 0:
+                    log.log('Friends login activity detected!')
+
                     loggedUsersMsg = time.strftime('[%X]')
 
                     for friend in recentLoggedUsers:
                         loggedUsersMsg = loggedUsersMsg + ' | ' + friend
 
                     print(loggedUsersMsg)
+                else:
+                    log.log('No friends activity')
 
             else:
+                log.log('Storing current friends list order for further login detection')
                 oldList = friendsPage.friendsList
 
         time.sleep(.05)

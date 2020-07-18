@@ -1,4 +1,5 @@
 import urllib.request
+import log
 
 class GarticRequester:
     GARTIC_BASE_URL = "https://www.gartic.com.br"
@@ -34,6 +35,8 @@ class GarticRequester:
             requestUrl = requestUrl + "/?"
             for item in attMap.items():
                 requestUrl = requestUrl + item[0] + "=" + str(item[1])
+
+        log.log('GET request (TO: ' + str(self.REQUEST_TIMEOUT) + ') -> ' + requestUrl)
 
         try:
             request = urllib.request.Request(requestUrl, headers=self.HTTP_REQUEST_HEADER)

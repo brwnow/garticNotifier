@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import re
+import log
 
 class GarticFriendPage:
     pageIndex = "0"
@@ -13,6 +14,8 @@ class GarticFriendPage:
         self.friendsList = []
 
         soup = BeautifulSoup(rawPageData, 'lxml')
+
+        log.log('Parsing gartic friends page')
 
         # Getting current page
         self.pageIndex = int(soup.find("a", class_="linkPaginacaoMarcado").contents[0])
@@ -29,5 +32,9 @@ class GarticFriendPage:
             # Extracting the number at the end of the href wich is the index of the last page
             self.maxPageIndex = int(re.search(r"\d+$", buttonHref).group())
 
+        log.log('pageIndex: ' + str(self.pageIndex) + ' --- maxPageIndex: ' + str(self.maxPageIndex))
+
         for player in soup.find_all("div", class_="titulo"):
             self.friendsList.append(player.find("a").contents[0].replace("\n", "").lower())
+
+        log.log('friendsList: ' + str(self.friendsList))
