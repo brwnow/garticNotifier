@@ -30,6 +30,9 @@ def extractRecentLoggedUsers(newList, oldList):
     return newList[firstUnmatchingIndex:]
 
 def main():
+    GARTIC_REQUESTS_INTERVAL = 60 # in seconds
+    user = ""
+
     # Checking if a username was passed ass the first parameter
     if len(sys.argv) > 1:
         user = sys.argv[1]
@@ -41,14 +44,20 @@ def main():
 
     garticRequester = GarticRequester()
 
-    timestamp = time.time() - 15
+    timestamp = time.time() - GARTIC_REQUESTS_INTERVAL
     oldList = []
     while not shouldStop:
-        if time.time() - timestamp >= 15:
+        if time.time() - timestamp >= GARTIC_REQUESTS_INTERVAL:
             timestamp = time.time()
 
             friendsPageRaw = garticRequester.getFriendsPageHtml(user, "1")
-            friendsPage = GarticFriendPage(friendsPageRaw)
+
+            friendsPage = None
+
+            if friendsPageRaw != None:
+                friendsPage = GarticFriendPage(friendsPageRaw)
+            else:
+                continue
 
             if len(oldList) > 0:
                 recentLoggedUsers = extractRecentLoggedUsers(friendsPage.friendsList, oldList)
@@ -56,10 +65,10 @@ def main():
                 oldList = friendsPage.friendsList
 
                 if len(recentLoggedUsers) > 0:
-                    loggedUsersMsg = time.strftime('[%X %x]')
+                    loggedUsersMsg = time.strftime('[%X]')
 
-                    for user in recentLoggedUsers:
-                        loggedUsersMsg = loggedUsersMsg + ' ' + user
+                    for friend in recentLoggedUsers:
+                        loggedUsersMsg = loggedUsersMsg + ' | ' + friend
 
                     print(loggedUsersMsg)
 
