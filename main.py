@@ -11,11 +11,23 @@ def onQuitKeyPressed():
     shouldStop = True
 
 def extractRecentLoggedUsers(newList, oldList):
-    for i in range(0, len(newList)):
-        if oldList[0] == newList[i]:
-            return newList[:i]
+    firstUnmatchingIndex = 0
 
-    return newList[:]
+    lenOfSmallerList = min(len(oldList), len(newList))
+    while firstUnmatchingIndex < lenOfSmallerList:
+        if oldList[firstUnmatchingIndex] != newList[firstUnmatchingIndex]:
+            break
+        else:
+            firstUnmatchingIndex += 1
+
+    if firstUnmatchingIndex == lenOfSmallerList:
+        return []
+
+    for i in range(firstUnmatchingIndex + 1, len(newList)):
+        if oldList[firstUnmatchingIndex] == newList[i]:
+            return newList[firstUnmatchingIndex:i]
+
+    return newList[firstUnmatchingIndex:]
 
 def main():
     # Checking if a username was passed ass the first parameter
