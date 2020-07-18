@@ -35,6 +35,6 @@ class GarticFriendPage:
         log.log('pageIndex: ' + str(self.pageIndex) + ' --- maxPageIndex: ' + str(self.maxPageIndex))
 
         for player in soup.find_all("div", class_="titulo"):
-            self.friendsList.append(player.find("a").contents[0].replace("\n", "").lower())
+            self.friendsList.append(player.find("a").contents[0].replace("\n", "").lower().strip())
 
         log.log('friendsList: ' + str(self.friendsList))
