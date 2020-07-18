@@ -13,6 +13,8 @@ class GarticRequester:
                             'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
                             'accept-language': 'en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7' }
 
+    REQUEST_TIMEOUT = 50 # in seconds
+
     GARTIC_FRIENDS_ENDPOINT = "/amigos"
     GARTIC_FRIENDS_PAG_ATT = "pag"
 
@@ -33,5 +35,14 @@ class GarticRequester:
             for item in attMap.items():
                 requestUrl = requestUrl + item[0] + "=" + str(item[1])
 
-        request = urllib.request.Request(requestUrl, headers=self.HTTP_REQUEST_HEADER)
-        return urllib.request.urlopen(request).read()
+        try:
+            request = urllib.request.Request(requestUrl, headers=self.HTTP_REQUEST_HEADER)
+            response = urllib.request.urlopen(request, timeout=self.REQUEST_TIMEOUT)
+
+            log.log('request succeed')
+
+            return response.read()
+        except urllib.error.HTTPError as error:
+            log.log('request failed | code: ' + str(error.code))
+
+            return None
