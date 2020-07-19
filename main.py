@@ -3,6 +3,7 @@ import time
 import keyboard
 from garticrequester import GarticRequester
 from garticfriendpage import GarticFriendPage
+from playsound import playsound
 import log
 
 shouldStop = False
@@ -71,6 +72,8 @@ def main():
 
                 if len(recentLoggedUsers) > 0:
                     log.log('Friends login activity detected!')
+
+                    playsound("media/sound/notification.wav")
 
                     loggedUsersMsg = time.strftime('[%X]')
 
