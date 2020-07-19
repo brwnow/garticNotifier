@@ -37,6 +37,7 @@ With the python installation location added to PATH env, install the following l
  ```
 python -m pip install beautifulsoup4
 python -m pip install keyboard
+python -m pip install playsound
  ```
 
 Now download this repository by clicking **code** at the upper-right corner of this page and then clicking **Download ZIP**  
