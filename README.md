@@ -23,7 +23,7 @@ As this project was develop and tested only for Python 3 it's recommended that y
 
 ### 1.1. Linux
 
-Follow this [how to install python 3 on ubuntu gui](https://phoenixnap.com/kb/how-to-install-python-3-ubuntu) (if you use another linux distro you probably already have python installed or at least can find your own way on installing python)  
+Follow this [how to install python 3 on ubuntu guide](https://phoenixnap.com/kb/how-to-install-python-3-ubuntu) (if you use another linux distro you probably already have python installed or at least can find your own way on installing python)  
 
 Open the terminal and install python-pip and all Gartic Notifier needed libs by running the following commands:
 
@@ -57,13 +57,13 @@ Now download this repository by clicking **code** at the upper-right corner of t
 
 ## 2. Usage basics
 
-Open the terminal, navigate to Gartic Notifier folder and call python passing Gartic Notifier entry ponit file `main.py` and pass as the single argument your gartic's username as below  
+Open the terminal, navigate to Gartic Notifier folder and call python passing Gartic Notifier entry ponit file `main.py` and also pass your gartic username as below  
 
 ```
 python main.py yourUsernameHere
 ```  
 
-Then the application will start showing each 60 seconds if any of your friends has logged in Gartic. If any friends has logged in, nothing will be shown  
+Then the application will start showing each 60 seconds if any of your friends has logged in to Gartic. If no friends has logged in, nothing will be shown  
 
 To quit the application press `Ctrl + Shift + Q` in the terminal window. Sometimes python get stuck performing network requests, so if it get stuck and don't finish the application, close the terminal  
 
