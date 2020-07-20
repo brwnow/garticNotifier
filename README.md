@@ -1,6 +1,6 @@
 # Gartic Notifier
 
-Gartic Notifier is an experimental tool which the main functionality is notifying you when your friends login in Gartic. It's a proof of concept that I decided to develop it to gather some practical informations about polling gartic server with continously http requests, in order to better decide if it's worth developing an Android application that notifies the user when its gartic friends login their accounts.
+Gartic Notifier is an experimental tool which the main functionality is notifying you when your friends login to Gartic. It's a proof of concept that I decided to develop in order to gather some practical informations about polling gartic server with continously http requests, so I can better decide if it's worth developing an Android application that notifies the user when its gartic friends login their accounts.
 
 ### License
 
@@ -9,22 +9,31 @@ Gartic Notifier is an experimental tool which the main functionality is notifyin
 > terms of the Do What The Fuck You Want To Public License, Version 2,  
 > as published by Sam Hocevar. See the COPYING file for more details.  
 
-_________________
-
 ## Summary
 
 - [1. Installation](#1-installation)  
   - [1.1. Linux](#11-linux)  
   - [1.2. Windows](#12-windows)  
+  - [1.3. Common steps](#13-common-steps)
 - [2. Usage basics](#2-usage-basics)
-
-_________________
 
 ## 1. Installation
 
+As this project was develop and tested only for Python 3 it's recommended that you use Python 3 to run it. If you want to use Python 2, do it on our own risk  
+
 ### 1.1. Linux
 
-***TO DO***  
+Follow this [how to install python 3 on ubuntu gui](https://phoenixnap.com/kb/how-to-install-python-3-ubuntu) (if you use another linux distro you probably already have python installed or at least can find your own way on installing python)  
+
+Open the terminal and install python-pip and all Gartic Notifier needed libs by running the following commands:
+
+```
+sudo apt install python-pip
+pip install beautifulsoup4
+pip install keyboard
+pip install playsound
+
+```
 
 ### 1.2. Windows
 
@@ -32,7 +41,7 @@ Download and install [python 3.8.4](https://www.python.org/downloads/release/pyt
 
 Now check this [Adding entry to PATH env Guide](https://docs.alfresco.com/4.2/tasks/fot-addpath.html) and add the path to the folder where you installed python to the `PATH env`  
 
-With the python installation location added to PATH env, install the following libraries to running the commands below in the terminal:
+With the python installation location added to PATH env, install the following libraries by running the commands below in the terminal:
 
  ```
 python -m pip install beautifulsoup4
@@ -40,11 +49,11 @@ python -m pip install keyboard
 python -m pip install playsound
  ```
 
+### 1.3. Common steps
+
 Now download this repository by clicking **code** at the upper-right corner of this page and then clicking **Download ZIP**  
 
 ![Downloading repository](/doc/images/downloadRepo.png?raw=true "Downloading repository")  
-
-_________________
 
 ## 2. Usage basics
 
@@ -60,7 +69,7 @@ To quit the application press `Ctrl + Shift + Q` in the terminal window. Sometim
 
 <details>
     <summary>
-        Exmaple
+        Example
     </summary>
 
     C:\Users\brwno\Documents\Projetos\garticNotifier>python main.py _comunicado_
