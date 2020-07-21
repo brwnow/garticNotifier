@@ -36,7 +36,7 @@ class CoreApplication:
     def __init__(self):
         pass
 
-    def startApplication(self):
+    def runApplication(self):
         GARTIC_REQUESTS_INTERVAL = 60 # in seconds
         user = ""
 
