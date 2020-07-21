@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import re
-import log
+from utils import log
 
 class GarticFriendPage:
     pageIndex = "0"

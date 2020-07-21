@@ -1,5 +1,5 @@
 import urllib.request
-import log
+from utils import log
 
 class GarticRequester:
     GARTIC_BASE_URL = "https://www.gartic.com.br"
