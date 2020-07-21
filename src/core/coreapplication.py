@@ -4,6 +4,7 @@ import keyboard
 from playsound import playsound
 
 from utils import log
+from core.algorithm import Algorithm
 from requests.garticrequester import GarticRequester
 from requests.garticfriendpage import GarticFriendPage
 
@@ -12,25 +13,6 @@ shouldStop = False
 def onQuitKeyPressed():
     global shouldStop
     shouldStop = True
-
-def extractRecentLoggedUsers(newList, oldList):
-    firstUnmatchingIndex = 0
-
-    lenOfSmallerList = min(len(oldList), len(newList))
-    while firstUnmatchingIndex < lenOfSmallerList:
-        if oldList[firstUnmatchingIndex] != newList[firstUnmatchingIndex]:
-            break
-        else:
-            firstUnmatchingIndex += 1
-
-    if firstUnmatchingIndex == lenOfSmallerList:
-        return []
-
-    for i in range(firstUnmatchingIndex + 1, len(newList)):
-        if oldList[firstUnmatchingIndex] == newList[i]:
-            return newList[firstUnmatchingIndex:i]
-
-    return newList[firstUnmatchingIndex:]
 
 class CoreApplication:
     def __init__(self):
@@ -51,6 +33,7 @@ class CoreApplication:
 
         garticRequester = GarticRequester()
 
+        algorithm = Algorithm()
         timestamp = time.time() - GARTIC_REQUESTS_INTERVAL
         oldList = []
         while not shouldStop:
@@ -71,7 +54,7 @@ class CoreApplication:
 
                 if len(oldList) > 0:
                     log.log('Detecting friends of ' + user + ' that have logged since last check')
-                    recentLoggedUsers = extractRecentLoggedUsers(friendsPage.friendsList, oldList)
+                    recentLoggedUsers = algorithm.extractRecentLoggedUsers(friendsPage.friendsList, oldList)
 
                     oldList = friendsPage.friendsList
 
