@@ -15,6 +15,8 @@ def onQuitKeyPressed():
     shouldStop = True
 
 class CoreApplication:
+    __algorithm = Algorithm()
+
     def __init__(self):
         pass
 
