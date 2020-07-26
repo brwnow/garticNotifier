@@ -37,11 +37,23 @@ pip install playsound
 
 ### 1.2. Windows
 
-Download and install [python 3.8.4](https://www.python.org/downloads/release/python-384/)  
+Download and install [python 3.8.5](https://www.python.org/ftp/python/3.8.5/python-3.8.5.exe)  
 
 Now check this [Adding entry to PATH env Guide](https://docs.alfresco.com/4.2/tasks/fot-addpath.html) and add the path to the folder where you installed python to the `PATH env`  
 
-With the python installation location added to PATH env, install the following libraries by running the commands below in the terminal:
+<details>
+    <summary>
+        Do you need some help finding out python installation location?
+    </summary>
+
+1. Open start menu and search for "python"
+2. Right click the python item in menu and click "Open File Location"
+3. It will probably open a folder with a shortcut to python real installation location. Right click the selected shortcut and click "Open File Location"
+4. Now you are at the real python istallation location, click the path bar and Ctrl + C the path to this folder
+
+</details>
+
+With the python installation location added to PATH env, open windows terminal (`windows key` + R, then type `cmd` and press enter) and install the following libraries by running the commands below in the terminal:
 
  ```
 python -m pip install beautifulsoup4
