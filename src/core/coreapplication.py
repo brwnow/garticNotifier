@@ -56,7 +56,7 @@ class CoreApplication:
 
         friendsPage = None
 
-        if friendsPageRaw != None:
+        if friendsPageRaw is not None:
             log.log('Parsing ' + self.__user + ' first page of friends')
             friendsPage = GarticFriendPage(friendsPageRaw)
         else:
