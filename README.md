@@ -72,25 +72,56 @@ Now download this repository by clicking **code** at the upper-right corner of t
 Open the terminal, navigate to Gartic Notifier folder and call python passing Gartic Notifier entry ponit file `main.py` and also pass your gartic username as below  
 
 ```
-python main.py yourUsernameHere
+python main.py -u yourUsernameHere
 ```  
 
-Then the application will start showing each 60 seconds if any of your friends has logged in to Gartic. If no friends has logged in, nothing will be shown  
+The application have one mandatory parameter `-u` or `--username` which should be the username of the application user, or in some specific use cases, the username of the profile of interest  
 
-To quit the application press `Ctrl + Shift + Q` in the terminal window. Sometimes python get stuck performing network requests, so if it get stuck and don't finish the application, close the terminal  
+The optional parameters are:  
+* `-w` / `--watch-friends` enables watching friend list mode. This will keep watching the friend list of the user passed in parameter `-u` each 60 seconds by default or each X seconds configured via `--interval` parameter
+* `-i` / `--interval` sets the interval in seconds between friend list scans. This parameter is related to `--watch-friends` parameter
+* `-v` / `--verbose` enables logging mode. each `v` means one more log level, for exemplo for log level 3 you must pass `-vvv`. For while the application has only 1 level of log
 
 <details>
     <summary>
-        Example
+        Examples
     </summary>
 
-    C:\Users\brwno\Documents\Projetos\garticNotifier>python main.py _comunicado_
-    [01:52:35] | isaafab
-    [01:53:35] | itneto_ | rod_mito
-    [01:54:35] | docinho_azedo0 | rafa_feroz | apriscmr
-    [01:55:35] | gokublack6737
-    [01:56:35] | rod_mito
-    [01:57:35] | thor_____ | k1r1gaya_
-    [01:58:35] | leonardofernandezz | kelgd20 | yournightmare3
+    C:\Users\brwno\Documents\Projetos\garticNotifier>python main.py -u _comunicado_ -w
+    [01:52] | isaafab
+    [01:53] | itneto_ | rod_mito
+    [01:54] | docinho_azedo0 | rafa_feroz | apriscmr
+
+    ==========================================================
+
+    C:\Users\brwno\Documents\Projetos\garticNotifier\src>python main.py -u _comunicado_ -w -i 90
+    [23:25] | gishx | _sayori
+    [23:26] | sharpey | froid__
+    [23:27] | andersodecarvalho | elisete2019 | sanocross | rafa_o_batata | __gaara_do_deserto | missbab
+
+    ==========================================================
+
+    C:\Users\brwno\Documents\Projetos\garticNotifier\src>python main.py -u alessandrojk -w --verbose
+    alessandrojk's friends page 1 request attempt
+    GET request (TO: 48.0) -> https://www.gartic.com.br/alessandrojk/amigos/?pag=1
+    request succeed
+    Parsing alessandrojk first page of friends
+    Parsing gartic friends page
+    pageIndex: 1 --- maxPageIndex: 254
+    friendsList: ['usurpadoraoficial', 'genialoira', 'catarinapoly', 'confusa', 'leticiaoliver', 'choosesuede', 'debsrocha', 'annyrose', 'malvada', 'cristeen', 'triforc3', 'alaneoliveira']
+    Detecting friends of alessandrojk that have logged since last check
+    No friends activity
+    alessandrojk's friends page 1 request attempt
+    GET request (TO: 48.0) -> https://www.gartic.com.br/alessandrojk/amigos/?pag=1
+    request succeed
+    Parsing alessandrojk first page of friends
+    Parsing gartic friends page
+    pageIndex: 1 --- maxPageIndex: 254
+    friendsList: ['annyrose', 'usurpadoraoficial', 'genialoira', 'catarinapoly', 'confusa', 'leticiaoliver', 'choosesuede', 'debsrocha', 'malvada', 'cristeen', 'triforc3', 'alaneoliveira']
+    Detecting friends of alessandrojk that have logged since last check
+    Friends login activity detected!
+    [23:11] | annyrose
 
 </details>
+
+To quit the application press `Ctrl + Shift + Q` in the terminal window. Sometimes python get stuck performing network requests, so if it get stuck and don't finish the application, close the terminal  
