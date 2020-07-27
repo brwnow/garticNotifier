@@ -1,7 +1,6 @@
 import sys
 import time
 import keyboard
-import argparse
 from playsound import playsound
 
 from utils import log
@@ -16,31 +15,38 @@ def onQuitKeyPressed():
     shouldStop = True
 
 class CoreApplication:
-    __GARTIC_REQUESTS_INTERVAL = 60
+    __requestInterval = 60
     __user = None
     __algorithm = Algorithm()
     __garticRequester = GarticRequester()
 
-    def __init__(self):
+    __mustWatchFriendList = False
+
+    def __init__(self, args):
         keyboard.add_hotkey('ctrl+shift+q', onQuitKeyPressed)
 
-    def enableFriendsActivityNotifications(self, userName):
-        self.__user = userName
+        self.__user = args.username
+
+        if args.requestInterval is not None:
+            self.__requestInterval = int(args.requestInterval)
+
+        if args.logLevel is not None:
+            log.setLogLevel(args.logLevel)
+
+        if args.watchFriendList is not None:
+            self.__mustWatchFriendList = True
+
+        # request timeout being set to 80% of request interval
+        self.__garticRequester.setRequestTimeout(self.__requestInterval * .8)
 
     def runApplication(self):
-        # Checking if a username was passed ass the first parameter
-        if len(sys.argv) > 1:
-            self.__user = sys.argv[1]
-        else:
-            print("Username is missing. Pass the username as the first parameter of the program call")
-            exit()
-
-        timestamp = time.time() - self.__GARTIC_REQUESTS_INTERVAL
+        timestamp = time.time() - self.__requestInterval
         while not shouldStop:
-            if time.time() - timestamp >= self.__GARTIC_REQUESTS_INTERVAL:
+            if time.time() - timestamp >= self.__requestInterval:
                 timestamp = time.time()
 
-                self.__checkFriendsActivity()
+                if self.__mustWatchFriendList == True:
+                    self.__checkFriendsActivity()
 
             time.sleep(.05)
 
