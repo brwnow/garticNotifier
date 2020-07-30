@@ -52,3 +52,7 @@ class GarticRequester:
             log.log('request failed | code: ' + str(error.code))
 
             return None
+        except:
+            log.log('request failed | unknown reason')
+
+            return None
